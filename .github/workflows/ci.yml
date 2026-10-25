@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Relais (syntaxe)
+        run: for f in server/*.mjs; do node --check "$f"; done
+      - name: Script d'installation
+        run: bash -n install.sh && shellcheck -s bash install.sh
+      - name: Interface (types + build)
+        working-directory: web
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+      - name: Démarrage du relais (sans Bbox)
+        run: |
+          DATA_DIR="$RUNNER_TEMP/data" PORT=8484 node server/index.mjs > "$RUNNER_TEMP/panel.log" 2>&1 &
+          for i in $(seq 1 20); do
+            if curl -fs http://127.0.0.1:8484/panel/health; then echo; curl -fs http://127.0.0.1:8484/ | grep -q '<div id="root">' && exit 0; fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/panel.log"; exit 1

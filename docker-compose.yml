@@ -1,0 +1,21 @@
+# docker compose up -d   →   http://<ip-de-la-machine>:8484
+# Image toute prête (amd64, arm64, Raspberry Pi arm/v7) : remplacer « build: . » par
+#   image: ghcr.io/cremechocos/bbox-panel:latest
+services:
+  bbox-panel:
+    build: .
+    container_name: bbox-panel
+    restart: unless-stopped
+    # Sous Linux, le réseau de l'hôte donne des latences plus justes et la résolution de mabbox.bytel.fr par la Bbox ;
+    # dans ce cas, retirer « ports ».
+    # network_mode: host
+    ports:
+      - "8484:8484"
+    environment:
+      # Adresse de la Bbox si mabbox.bytel.fr ne se résout pas dans le conteneur
+      BBOX_FALLBACK_IP: 192.168.1.254
+      SESSION_DAYS: 30
+    volumes:
+      - bbox-panel-data:/data
+volumes:
+  bbox-panel-data:

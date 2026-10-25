@@ -1,0 +1,16 @@
+{
+  "name": "bbox-panel",
+  "version": "3.1.0",
+  "private": true,
+  "description": "Panel moderne pour Bbox Bouygues Telecom (relais local + webapp iOS)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/index.mjs",
+    "dev": "VERBOSE=1 node --watch server/index.mjs",
+    "build": "npm --prefix web ci --no-audit --no-fund && npm --prefix web run build",
+    "dev:web": "npm --prefix web run dev"
+  }
+}

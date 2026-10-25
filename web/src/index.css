@@ -1,0 +1,517 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ════════════════════════════════════════════════════════════════════
+   Ma Bbox — thèmes
+   html[data-skin]  : clair (Bbox Clair) · geist (Noir Geist, façon Vercel)
+   html[data-theme] : light · dark   (posé par le script de démarrage, sans flash)
+   ════════════════════════════════════════════════════════════════════ */
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant clair (&:where([data-skin=clair], [data-skin=clair] *));
+@custom-variant geist (&:where([data-skin=geist], [data-skin=geist] *));
+
+/* Bouygues Read : servie par la Bbox elle-même (relayée par le serveur du panel) */
+@font-face { font-family: "Bouygues Read"; src: url("/fonts/BouyguesRead-Regular.woff2") format("woff2"); font-weight: 300 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bouygues Read"; src: url("/fonts/BouyguesRead-Semibold.woff2") format("woff2"); font-weight: 600 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+@theme inline {
+  --font-sans: var(--app-font);
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-num: var(--app-font-num);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-down: var(--down);
+  --color-up: var(--up);
+  --color-lat: var(--lat);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-faint: var(--faint);
+  --color-hover: var(--hover);
+  --color-selected: var(--selected);
+  --color-field: var(--field);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --shadow-card: var(--card-shadow);
+  --shadow-pop: var(--pop-shadow);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ───────── Bbox Clair · clair (défaut) ───────── */
+:root {
+  --app-font: "Bouygues Read", -apple-system, "SF Pro Text", system-ui, sans-serif;
+  --app-font-num: "Bouygues Read", -apple-system, system-ui, sans-serif;
+  --radius: 14px;
+  --background: #eef2f5;
+  --foreground: #132331;
+  --card: #ffffff;
+  --card-foreground: #132331;
+  --popover: #ffffff;
+  --popover-foreground: #132331;
+  --primary: #182b3b;
+  --primary-foreground: #ffffff;
+  --secondary: #e6edf2;
+  --secondary-foreground: #182b3b;
+  --muted: #eef2f5;
+  --muted-foreground: #5a6d7e;
+  --accent: #e9f0f4;
+  --accent-foreground: #132331;
+  --destructive: #c4290a;
+  --destructive-foreground: #ffffff;
+  --border: #dfe6ec;
+  --input: #d3dde5;
+  --ring: #0c7b91;
+  --surface: #f4f7f9;
+  --brand: #0c7b91;
+  --brand-foreground: #ffffff;
+  --brand-soft: #e1f1f4;
+  --brand-ink: #08606f;
+  --ok: #00704b;
+  --ok-soft: #e2f3eb;
+  --warn: #9a4307;
+  --warn-soft: #fdeee2;
+  --danger: #c4290a;
+  --danger-soft: #fde9e4;
+  --chart-1: #0c7b91;
+  --chart-2: #25465f;
+  --chart-3: #3ab3c8;
+  --chart-4: #e08a2e;
+  --chart-5: #9fb3c3;
+  --down: #0c7b91;
+  --up: #25465f;
+  --lat: #3a72d0;
+  --sidebar: #182b3b;
+  --sidebar-foreground: #e7eef4;
+  --sidebar-muted: #93a9bb;
+  --sidebar-accent: rgba(255, 255, 255, 0.08);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-primary: #5fd0e2;
+  --logo: #25465f;
+  --card-border: transparent;
+  --card-shadow: 0 0 0 1px rgba(19, 35, 49, 0.05), 0 1px 2px rgba(19, 35, 49, 0.04), 0 10px 28px -14px rgba(19, 35, 49, 0.14);
+  --pop-shadow: 0 0 0 1px rgba(19, 35, 49, 0.06), 0 18px 48px -12px rgba(19, 35, 49, 0.28);
+  --overlay: rgba(9, 20, 30, 0.42);
+  --sb: rgba(24, 43, 59, 0.2);
+  --sb-hover: rgba(24, 43, 59, 0.38);
+  --grid-line: rgba(19, 35, 49, 0.07);
+  --faint: #7d8e9c;
+  --hover: rgba(19, 35, 49, 0.04);
+  --selected: rgba(19, 35, 49, 0.06);
+  --field: #f4f7f9;
+  --glass: rgba(255, 255, 255, 0.86);
+  --glass-ring: rgba(19, 35, 49, 0.08);
+  color-scheme: light;
+}
+
+/* ───────── Bbox Clair · sombre ───────── */
+[data-theme="dark"] {
+  --background: #0b1620;
+  --foreground: #e7eef4;
+  --card: #112231;
+  --card-foreground: #e7eef4;
+  --popover: #132636;
+  --popover-foreground: #e7eef4;
+  --primary: #e7eef4;
+  --primary-foreground: #0b1620;
+  --secondary: #1a2f41;
+  --secondary-foreground: #e7eef4;
+  --muted: #152839;
+  --muted-foreground: #93a7b8;
+  --accent: #1a2f41;
+  --accent-foreground: #e7eef4;
+  --destructive: #ff7a5c;
+  --destructive-foreground: #1a0904;
+  --border: rgba(231, 238, 244, 0.09);
+  --input: rgba(231, 238, 244, 0.14);
+  --ring: #4cc0d4;
+  --surface: #0f1e2b;
+  --brand: #4cc0d4;
+  --brand-foreground: #04161c;
+  --brand-soft: rgba(76, 192, 212, 0.14);
+  --brand-ink: #7fd6e6;
+  --ok: #4fd09d;
+  --ok-soft: rgba(79, 208, 157, 0.13);
+  --warn: #ffb071;
+  --warn-soft: rgba(255, 176, 113, 0.13);
+  --danger: #ff8a70;
+  --danger-soft: rgba(255, 138, 112, 0.13);
+  --chart-1: #4cc0d4;
+  --chart-2: #8fb1cc;
+  --chart-3: #6fd3e3;
+  --chart-4: #f0a35c;
+  --chart-5: #5b7385;
+  --down: #4cc0d4;
+  --up: #8fb1cc;
+  --lat: #7ea6f6;
+  --sidebar: #08121a;
+  --sidebar-border: rgba(231, 238, 244, 0.07);
+  --logo: #e7eef4;
+  --card-border: rgba(231, 238, 244, 0.06);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --pop-shadow: 0 0 0 1px rgba(231, 238, 244, 0.08), 0 24px 56px -12px rgba(0, 0, 0, 0.7);
+  --overlay: rgba(2, 8, 12, 0.62);
+  --sb: rgba(231, 238, 244, 0.16);
+  --sb-hover: rgba(231, 238, 244, 0.3);
+  --grid-line: rgba(231, 238, 244, 0.06);
+  --faint: #6f8496;
+  --hover: rgba(231, 238, 244, 0.04);
+  --selected: rgba(231, 238, 244, 0.07);
+  --field: #0f1e2b;
+  --glass: rgba(17, 34, 49, 0.86);
+  --glass-ring: rgba(231, 238, 244, 0.08);
+  color-scheme: dark;
+}
+
+/* ───────── Noir Geist · clair (direction « Ligne » : minimal, dense, sans cartes) ───────── */
+[data-skin="geist"] {
+  --app-font: "Geist", -apple-system, system-ui, sans-serif;
+  --app-font-num: "Geist", -apple-system, system-ui, sans-serif;
+  --radius: 8px;
+  --background: #ffffff;
+  --foreground: #17181a;
+  --card: #ffffff;
+  --card-foreground: #17181a;
+  --popover: #ffffff;
+  --popover-foreground: #17181a;
+  --primary: #17181a;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f1f2;
+  --secondary-foreground: #17181a;
+  --muted: #f4f4f5;
+  --muted-foreground: #6b6e75;
+  --faint: #707379;
+  --accent: #efeff0;
+  --accent-foreground: #17181a;
+  --destructive: #c93636;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.07);
+  --input: rgba(0, 0, 0, 0.1);
+  --ring: #9a9da3;
+  --surface: #f6f6f7;
+  --brand: #17181a;
+  --brand-foreground: #ffffff;
+  --brand-soft: rgba(0, 0, 0, 0.05);
+  --brand-ink: #17181a;
+  --ok: #17784b;
+  --ok-soft: rgba(23, 120, 75, 0.1);
+  --warn: #a04d00;
+  --warn-soft: rgba(217, 119, 6, 0.12);
+  --danger: #c93636;
+  --danger-soft: rgba(201, 54, 54, 0.09);
+  --chart-1: #0a84ff;
+  --chart-2: #a550dd;
+  --chart-3: #24a36b;
+  --chart-4: #e08a00;
+  --chart-5: #a6a8ad;
+  --down: #0a84ff;
+  --up: #a550dd;
+  --lat: #24a36b;
+  --sidebar: #f7f7f8;
+  --sidebar-foreground: #3b3e44;
+  --sidebar-muted: #6b6e75;
+  --sidebar-accent: rgba(0, 0, 0, 0.055);
+  --sidebar-accent-foreground: #17181a;
+  --sidebar-border: transparent;
+  --sidebar-primary: #17181a;
+  --logo: #17181a;
+  --card-border: transparent;
+  --card-shadow: none;
+  --pop-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07), 0 4px 10px -2px rgba(0, 0, 0, 0.05), 0 20px 44px -10px rgba(0, 0, 0, 0.18);
+  --glass: rgba(255, 255, 255, 0.84);
+  --glass-ring: rgba(0, 0, 0, 0.08);
+  --hover: rgba(0, 0, 0, 0.035);
+  --selected: rgba(0, 0, 0, 0.055);
+  --field: rgba(0, 0, 0, 0.04);
+  --overlay: rgba(0, 0, 0, 0.16);
+  --sb: rgba(0, 0, 0, 0.14);
+  --sb-hover: rgba(0, 0, 0, 0.28);
+  --grid-line: rgba(0, 0, 0, 0.06);
+}
+
+/* ───────── Noir Geist · sombre (défaut de l'apparence) ───────── */
+[data-skin="geist"][data-theme="dark"] {
+  --background: #08090a;
+  --foreground: #f7f8f8;
+  --card: #0f1011;
+  --card-foreground: #f7f8f8;
+  --popover: #141517;
+  --popover-foreground: #f7f8f8;
+  --primary: #f7f8f8;
+  --primary-foreground: #08090a;
+  --secondary: #17181a;
+  --secondary-foreground: #f7f8f8;
+  --muted: #121314;
+  --muted-foreground: #8a8f98;
+  --faint: #7b7f87;
+  --accent: #17181a;
+  --accent-foreground: #f7f8f8;
+  --destructive: #eb5757;
+  --destructive-foreground: #08090a;
+  --border: rgba(255, 255, 255, 0.07);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #8a8f98;
+  --surface: #0f1011;
+  --brand: #f7f8f8;
+  --brand-foreground: #08090a;
+  --brand-soft: rgba(255, 255, 255, 0.07);
+  --brand-ink: #f7f8f8;
+  --ok: #4cb782;
+  --ok-soft: rgba(76, 183, 130, 0.13);
+  --warn: #f2a33a;
+  --warn-soft: rgba(242, 163, 58, 0.13);
+  --danger: #eb5757;
+  --danger-soft: rgba(235, 87, 87, 0.13);
+  --chart-1: #5ac8fa;
+  --chart-2: #bf5af2;
+  --chart-3: #4cb782;
+  --chart-4: #f2a33a;
+  --chart-5: #62666d;
+  --down: #5ac8fa;
+  --up: #bf5af2;
+  --lat: #4cb782;
+  --sidebar: #0f1011;
+  --sidebar-foreground: #c9ced6;
+  --sidebar-muted: #8a8f98;
+  --sidebar-accent: rgba(255, 255, 255, 0.07);
+  --sidebar-accent-foreground: #f7f8f8;
+  --sidebar-border: transparent;
+  --sidebar-primary: #f7f8f8;
+  --logo: #f7f8f8;
+  --card-border: transparent;
+  --card-shadow: none;
+  --pop-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 24px 64px -12px rgba(0, 0, 0, 0.9);
+  --glass: rgba(22, 23, 25, 0.8);
+  --glass-ring: rgba(255, 255, 255, 0.07);
+  --hover: rgba(255, 255, 255, 0.035);
+  --selected: rgba(255, 255, 255, 0.06);
+  --field: rgba(255, 255, 255, 0.045);
+  --overlay: rgba(0, 0, 0, 0.42);
+  --sb: rgba(255, 255, 255, 0.13);
+  --sb-hover: rgba(255, 255, 255, 0.26);
+  --grid-line: rgba(255, 255, 255, 0.06);
+}
+
+/* ───────── Base ───────── */
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { -webkit-text-size-adjust: 100%; overflow-x: clip; scroll-padding-top: 80px; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--app-font);
+    overflow-x: clip;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-skin="geist"] body { font-feature-settings: "ss01", "cv11"; }
+  ::selection { background: color-mix(in oklab, var(--brand) 26%, transparent); }
+  .tabular { font-variant-numeric: tabular-nums; }
+}
+
+/* ───────── Barres de défilement fines et thémées ───────── */
+@supports not selector(::-webkit-scrollbar) {
+  html, .scroll-y, .scroll-x { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
+}
+::-webkit-scrollbar { width: 14px; height: 14px; }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-thumb { background-color: var(--sb); background-clip: padding-box; border: 4px solid transparent; border-radius: 99px; min-height: 44px; }
+::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background-color: var(--sb-hover); }
+.scroll-y::-webkit-scrollbar, .scroll-x::-webkit-scrollbar { width: 11px; height: 11px; }
+.scroll-y::-webkit-scrollbar-thumb, .scroll-x::-webkit-scrollbar-thumb { border-width: 3px; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.sidebar-scroll::-webkit-scrollbar { width: 8px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background-color: transparent; border-width: 2px; }
+.sidebar-scroll:hover::-webkit-scrollbar-thumb { background-color: color-mix(in oklab, var(--sidebar-foreground) 22%, transparent); }
+
+/* ───────── Petites briques globales ───────── */
+@utility card-surface {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+@utility num { font-family: var(--app-font-num); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+/* Fondu sur les bords d'une zone qui défile horizontalement */
+.fade-x { -webkit-mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent); mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent); }
+
+/* Graphiques */
+.chart-grid { stroke: var(--grid-line); stroke-width: 1; shape-rendering: crispEdges; }
+.chart-axis { fill: var(--muted-foreground); font-size: 11px; font-family: var(--app-font-num); font-variant-numeric: tabular-nums; }
+.chart-thr { stroke: var(--warn); stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.7; }
+.chart-cross { stroke: var(--muted-foreground); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; }
+
+@media print {
+  body { background: #fff !important; }
+  .no-print { display: none !important; }
+}
+
+/* Indicateur « en direct » */
+@keyframes live-ping { 0% { transform: scale(0.6); opacity: 0.7; } 100% { transform: scale(2.2); opacity: 0; } }
+.live-dot { position: relative; display: inline-block; width: 8px; height: 8px; border-radius: 99px; background: var(--ok); flex: none; }
+.live-dot::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: inherit; animation: live-ping 1.8s var(--ease-out-expo) infinite; }
+.live-dot.bad { background: var(--danger); }
+@media (prefers-reduced-motion: reduce) {
+  .live-dot::after { animation: none; }
+}
+
+/* ───────── Entrée des blocs de page (décalage progressif, transform/opacity uniquement) ───────── */
+@keyframes page-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.enter { animation: page-enter 0.55s var(--ease-out-expo) both; }
+.enter:nth-child(2) { animation-delay: 40ms; } .enter:nth-child(3) { animation-delay: 80ms; } .enter:nth-child(4) { animation-delay: 120ms; }
+.enter:nth-child(5) { animation-delay: 160ms; } .enter:nth-child(6) { animation-delay: 200ms; } .enter:nth-child(7) { animation-delay: 240ms; }
+.enter:nth-child(8) { animation-delay: 280ms; } .enter:nth-child(n+9) { animation-delay: 320ms; }
+@media (prefers-reduced-motion: reduce) { .enter { animation: none; } }
+[data-preview] .enter { animation: none; }
+
+/* Bascule clair/sombre : couleurs en fondu, uniquement pendant le changement */
+html.theme-switching, html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease, fill 0.3s ease, stroke 0.3s ease !important;
+}
+
+/* ───────── Notifications temps réel (sonner, toaster « live ») ───────── */
+@keyframes notif-life { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+.notif-life { animation-name: notif-life; animation-timing-function: linear; animation-fill-mode: forwards; }
+[data-sonner-toast][data-expanded="true"] .notif-life, [data-sonner-toast]:not([data-front="true"]) .notif-life { animation-play-state: paused; }
+/* pile repliée : seules les cartes de dessous dépassent, sans leur contenu (comme les notifications d'iOS) */
+[data-sonner-toast] .notif-card > * { transition: opacity 0.3s ease; }
+[data-sonner-toast][data-expanded="false"][data-front="false"] .notif-card > * { opacity: 0; }
+/* cloche : oscillation à chaque notification, pastille qui « pop » */
+@keyframes bell-ring { 0% { transform: rotate(0); } 15% { transform: rotate(14deg); } 30% { transform: rotate(-12deg); } 45% { transform: rotate(8deg); } 60% { transform: rotate(-5deg); } 75% { transform: rotate(2deg); } 100% { transform: rotate(0); } }
+@keyframes badge-pop { 0% { transform: scale(0.4); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.bell-ring svg { transform-origin: 50% 10%; animation: bell-ring 0.9s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+.bell-ring .bell-badge { animation: badge-pop 0.45s var(--ease-spring); }
+@media (prefers-reduced-motion: reduce) { .bell-ring svg, .bell-ring .bell-badge { animation: none; } }
+
+/* ───────── Connexion (minimaliste) ───────── */
+.login { --lg-glow: rgba(12, 123, 145, 0.16); --lg-ring: rgba(24, 43, 59, 0.09); --lg-dot: transparent; }
+[data-theme="dark"] .login { --lg-glow: rgba(76, 192, 212, 0.13); --lg-ring: rgba(169, 195, 214, 0.09); }
+[data-skin="geist"] .login { --lg-glow: rgba(0, 0, 0, 0.05); --lg-ring: rgba(0, 0, 0, 0.06); --lg-dot: rgba(0, 0, 0, 0.13); }
+[data-skin="geist"][data-theme="dark"] .login { --lg-glow: rgba(255, 255, 255, 0.07); --lg-ring: rgba(255, 255, 255, 0.07); --lg-dot: rgba(255, 255, 255, 0.13); }
+.login-bg::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(var(--lg-dot) 1px, transparent 1.2px); background-size: 22px 22px; -webkit-mask-image: radial-gradient(ellipse 55% 50% at 50% 44%, #000 10%, transparent 72%); mask-image: radial-gradient(ellipse 55% 50% at 50% 44%, #000 10%, transparent 72%); }
+.login-glow { position: absolute; left: 50%; top: 44%; width: 980px; height: 980px; transform: translate(-50%, -50%); background: radial-gradient(closest-side, var(--lg-glow), transparent); }
+.login-rings { position: absolute; left: 50%; top: 44%; width: 1100px; height: 1100px; transform: translate(-50%, -50%); }
+.login-rings circle { fill: none; stroke: var(--lg-ring); stroke-width: 1; transform-box: view-box; transform-origin: 400px 400px; animation: lg-breathe 8s var(--ease-out-expo) infinite alternate; }
+@keyframes lg-breathe { from { transform: scale(0.975); opacity: 0.5; } to { transform: scale(1.025); opacity: 1; } }
+@media (max-width: 760px) { .login-rings { width: 820px; height: 820px; } .login-glow { width: 640px; height: 640px; } }
+@media (prefers-reduced-motion: reduce) { .login-rings circle { animation: none; } }
+
+/* Contrôles segmentés qui défilent : fondu du côté où il reste des options */
+[role="radiogroup"][data-fe="1"]:not([data-fs="1"]) { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+[role="radiogroup"][data-fs="1"]:not([data-fe="1"]) { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to left, #000 calc(100% - 28px), transparent); }
+[role="radiogroup"][data-fs="1"][data-fe="1"] { -webkit-mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
+
+/* ═════════════ Noir Geist « Ligne » : pas de cartes, des sections ═════════════ */
+/* les cartes deviennent de simples sections (ni fond, ni bordure, ni ombre) */
+[data-skin="geist"] .card-surface { background: transparent; border: 0; box-shadow: none; border-radius: 0; }
+/* sections côte à côte : de l'air plutôt que des cadres */
+[data-skin="geist"] .grid:has(> [data-card]) { column-gap: 3rem; row-gap: 2.75rem; }
+@media (max-width: 639px) { [data-skin="geist"] .grid:has(> [data-card]) { row-gap: 2.25rem; } }
+/* listes « à fond perdu » dans une section : alignées sur le titre, le survol déborde de 8 px */
+[data-skin="geist"] [data-card] .-mx-5, [data-skin="geist"] [data-card] .-mx-4 { margin-inline: -0.5rem; }
+@media (max-width: 639px) { [data-skin="geist"] [data-card] .max-sm\:-mx-4 { margin-inline: -0.5rem; } }
+/* (les boutons du kit gardent leur propre marge intérieure) */
+[data-skin="geist"] [data-card] :is(.px-5, .px-4):not([data-btn]) { padding-inline: 0; }
+[data-skin="geist"] [data-card] :is(.-mx-5, .-mx-4) :is(.px-5, .px-4):not([data-btn]), [data-skin="geist"] [data-card] :is(.-mx-5, .-mx-4):is(.px-5, .px-4) { padding-inline: 0.5rem; }
+@media (max-width: 639px) {
+  [data-skin="geist"] [data-card] .max-sm\:px-4 { padding-inline: 0; }
+  [data-skin="geist"] [data-card] :is(.-mx-5, .-mx-4, .max-sm\:-mx-4) .max-sm\:px-4 { padding-inline: 0.5rem; }
+}
+/* verre dépoli pour tout ce qui flotte (feuilles, palette, menus, notifications) */
+@utility glass {
+  background-color: var(--glass);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: 0 0 0 1px var(--glass-ring), var(--pop-shadow);
+}
+/* touches de clavier */
+@utility kbd {
+  display: inline-grid; place-items: center; height: 18px; min-width: 18px; padding: 0 4px; border-radius: 4px;
+  background: var(--selected); color: var(--muted-foreground); font: 500 11px/1 var(--app-font); font-variant-numeric: tabular-nums;
+}
+[data-skin="geist"] .live-dot { width: 7px; height: 7px; }
+[data-skin="geist"] .chart-axis { fill: var(--faint); font-size: 11px; }
+
+/* ───────── Mode mural ─────────
+   Tout se règle depuis le panneau « Personnaliser » : --wall-scale (taille du texte), densité, accent.
+   Sur grand écran la grille occupe exactement la fenêtre : chaque tuile est un conteneur de taille et
+   ses grands chiffres suivent sa largeur ET sa hauteur (cqi/cqh), quel que soit le nombre de tuiles. */
+.wall { --wall-scale: 1; --wall-edge: clamp(16px, 2.6vw, 52px); --wall-gap: clamp(14px, 1.5vw, 28px); --wall-pad: clamp(16px, 1.45vw, 30px); --wall-row: 120px; --wall-accent: var(--chart-1); --wall-accent-2: var(--up); }
+.wall[data-density="compact"] { --wall-edge: clamp(12px, 1.8vw, 36px); --wall-gap: clamp(10px, 1vw, 18px); --wall-pad: clamp(14px, 1.1vw, 22px); }
+[data-skin="geist"] .wall { --wall-gap: clamp(22px, 2.6vw, 52px); }
+[data-skin="geist"] .wall[data-density="compact"] { --wall-gap: clamp(16px, 1.8vw, 34px); }
+.wall-tile { container-type: inline-size; }
+@media (min-width: 1024px) { .wall-tile { container-type: size; } }
+.wall-label { font-size: calc(var(--wall-scale) * clamp(13px, 0.92vw, 19px)); line-height: 1.25; }
+.wall-text { font-size: calc(var(--wall-scale) * clamp(14px, 1vw, 21px)); line-height: 1.3; }
+.wall-small { font-size: calc(var(--wall-scale) * clamp(12px, 0.84vw, 17px)); line-height: 1.3; }
+.wall-num { font-weight: 600; letter-spacing: -0.04em; }
+[data-skin="geist"] .wall-num { font-weight: 500; }
+.wall-clock { font-size: calc(var(--wall-scale) * clamp(40px, min(25cqi, 52cqh), 420px)); line-height: 0.9; letter-spacing: -0.055em; }
+.wall-xl { font-size: calc(var(--wall-scale) * clamp(32px, min(19cqi, 40cqh), 220px)); line-height: 0.92; }
+.wall-lg { font-size: calc(var(--wall-scale) * clamp(26px, min(12.5cqi, 30cqh), 150px)); line-height: 0.95; }
+.wall-md { font-size: calc(var(--wall-scale) * clamp(17px, min(6cqi, 11cqh), 60px)); line-height: 1.05; letter-spacing: -0.02em; }
+.wall-unit { margin-left: 0.18em; font-size: 0.36em; font-weight: 500; letter-spacing: 0; color: var(--muted-foreground); }
+.wall .live-dot { width: 0.55em; height: 0.55em; }
+
+/* Barre latérale réduite (icônes seules) : libellés en fondu avec un léger glissement,
+   petits séparateurs et pastilles à la place ; à l'ouverture, les libellés arrivent un peu après la largeur */
+.nav-label { transition: opacity 0.22s ease, transform 0.3s var(--ease-spring); transition-delay: 0.12s; }
+[data-mini="true"] .nav-label { opacity: 0; transform: translateX(-6px); pointer-events: none; transition-delay: 0s; }
+.nav-rule, .nav-dot { opacity: 0; transition: opacity 0.2s ease; }
+[data-mini="true"] .nav-rule, [data-mini="true"] .nav-dot { opacity: 1; transition-delay: 0.16s; }
+@media (prefers-reduced-motion: reduce) { .nav-label, .nav-rule, .nav-dot { transition: none; } }
+
+/* Bbox Clair : les chiffres tabulaires de Bouygues Read ont un zéro barré (« 2Ø,2 Mb/s ») ;
+   on garde les chiffres proportionnels de la police, dont le zéro est normal. */
+[data-skin="clair"] .num, [data-skin="clair"] .chart-axis, [data-skin="clair"] .tabular-nums { font-variant-numeric: normal; }

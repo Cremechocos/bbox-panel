@@ -1,0 +1,68 @@
+/* ════════════════════════════════════════════════════════════════════
+   Graphiques — compléments aux classes globales d'index.css
+   (.chart-grid, .chart-axis, .chart-thr, .chart-cross, .num, .live-dot).
+   Couleurs : uniquement les variables du thème. Animations : transform/opacity,
+   coupées si « mouvement réduit » et dans les aperçus (page Apparence).
+   ════════════════════════════════════════════════════════════════════ */
+
+.lc-root { position: relative; width: 100%; touch-action: pan-y; user-select: none; -webkit-user-select: none; color: var(--muted-foreground); }
+.lc-root > svg { display: block; overflow: visible; }
+
+/* Graduations : Geist Mono sur Noir Geist (comme l'ancienne interface) */
+[data-skin="geist"] .lc-root .chart-axis { font-family: var(--app-font-num); font-size: 11px; letter-spacing: 0; fill: var(--faint); }
+/* Noir Geist « Ligne » : aires à peine teintées, liserés sur le fond de page (plus de cartes) */
+[data-skin="geist"] .lc-root stop:first-child { stop-opacity: 0.1; }
+[data-skin="geist"] .lc-root .lc-halo-text, [data-skin="geist"] .lc-nodata { stroke: var(--background); }
+[data-skin="geist"] .lc-hdot { stroke: var(--background); }
+.lc-root .chart-axis.is-strong { fill: var(--foreground); font-weight: 500; }
+/* étiquettes posées sur les courbes : liseré couleur carte pour rester lisibles */
+.lc-root .lc-halo-text { paint-order: stroke; stroke: var(--card); stroke-width: 3px; stroke-linejoin: round; }
+.lc-root .lc-base { stroke: var(--border); }
+.lc-root .chart-cross { transition: opacity 0.12s ease; }
+
+/* Zone hachurée « pas encore de mesures » */
+.lc-hatch { stroke: var(--border); stroke-width: 1.5; }
+.lc-nodata { fill: var(--muted-foreground); font-size: 11.5px; font-family: var(--app-font); paint-order: stroke; stroke: var(--card); stroke-width: 4px; stroke-linejoin: round; }
+
+/* Pertes de paquets */
+.lc-loss { fill: var(--danger); }
+
+/* Point « en direct » au bord droit + halo qui pulse (transform/opacity) ;
+   halo arrêté quand le point est masqué ou que la boucle est en pause (hors écran) */
+.lc-live { transition: opacity 0.2s ease; }
+.lc-dot { filter: drop-shadow(0 0 4px currentColor); }
+.lc-halo { opacity: 0; transform-box: fill-box; transform-origin: center; animation: lc-ping 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite; pointer-events: none; }
+@keyframes lc-ping { 0% { opacity: 0.45; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(3.2); } }
+.lc-live:not([data-on]) .lc-halo { animation: none; }
+.lc-root[data-paused] .lc-halo { animation-play-state: paused; }
+
+/* Points de survol */
+.lc-hdot { stroke: var(--card); stroke-width: 2px; pointer-events: none; transition: opacity 0.12s ease; }
+
+/* Barres : survol = les autres s'estompent, colonne survolée légèrement teintée */
+.lc-bar { transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
+.lc-root > svg[data-hover] .lc-bar:not([data-hl]) { opacity: 0.42; }
+.lc-slot { fill: var(--foreground); opacity: 0; transition: opacity 0.15s ease; pointer-events: none; }
+.lc-root > svg[data-hover] .lc-slot { opacity: 0.05; }
+
+/* Anneau : survol d'un segment = les autres s'estompent */
+.lc-arc { transition: opacity 0.18s ease; }
+.lc-donut:has(.lc-arc:hover) .lc-arc:not(:hover) { opacity: 0.4; }
+
+/* ───────── Entrées (une seule fois, au montage) ───────── */
+.lc-grow-y { transform-box: fill-box; transform-origin: 50% 100%; animation: lc-grow-y 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes lc-grow-y { from { transform: scaleY(0); } }
+.lc-grow-x { transform-origin: 0 50%; animation: lc-grow-x 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes lc-grow-x { from { transform: scaleX(0); } }
+/* courbes : montent depuis la ligne de base (transform-origin posé en style) */
+.lc-rise { animation: lc-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes lc-rise { from { opacity: 0; transform: scaleY(0.001); } }
+.lc-fade-in { animation: lc-fade 0.5s ease-out both; }
+@keyframes lc-fade { from { opacity: 0; } }
+.lc-pop { animation: lc-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes lc-pop { from { opacity: 0; transform: scale(0.94); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .lc-grow-y, .lc-grow-x, .lc-rise, .lc-fade-in, .lc-pop, .lc-halo { animation: none; }
+}
+[data-preview] :is(.lc-grow-y, .lc-grow-x, .lc-rise, .lc-fade-in, .lc-pop, .lc-halo) { animation: none; }

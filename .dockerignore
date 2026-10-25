@@ -1,0 +1,9 @@
+.git
+node_modules
+web/node_modules
+web/dist
+data
+docs
+public
+*.log
+.DS_Store

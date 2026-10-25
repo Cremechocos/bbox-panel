@@ -1,0 +1,57 @@
+{
+  "name": "Ma Bbox",
+  "short_name": "Ma Bbox",
+  "description": "Pilotez votre Bbox : Wi-Fi, appareils, ports, téléphonie, diagnostics.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#182b3b",
+  "theme_color": "#edf1f4",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "/",
+  "categories": [
+    "utilities",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "Appareils",
+      "url": "/#/appareils"
+    },
+    {
+      "name": "Wi-Fi",
+      "url": "/#/wifi"
+    },
+    {
+      "name": "Diagnostic",
+      "url": "/#/diagnostic"
+    }
+  ]
+}

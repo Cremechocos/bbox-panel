@@ -1,0 +1,22 @@
+name: Compatibilité d'un modèle de Bbox
+description: Le panel fonctionne mal ou en partie sur votre Bbox
+title: "[Compatibilité] "
+labels: [compatibilité]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dans le panel : **Ma Bbox → Compatibilité → Générer le rapport**, puis **Copier**.
+        Le rapport ne contient ni numéro de série, ni adresse MAC, ni adresse IP.
+  - type: textarea
+    id: rapport
+    attributes:
+      label: Rapport de compatibilité
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: probleme
+    attributes:
+      label: Ce qui ne fonctionne pas
+      description: Écran concerné, message d'erreur affiché.

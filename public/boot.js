@@ -1,0 +1,18 @@
+// Applique l'apparence AVANT le premier affichage (évite le flash de mauvais thème).
+// Script classique et synchrone, chargé dans <head>.
+(function () {
+  var DEF = { clair: 'light', geist: 'dark' };
+  var PAPER = { clair: ['#eef2f5', '#0b1620'], geist: ['#fafafa', '#000000'] };
+  var q = new URLSearchParams(location.search);
+  var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  var skin = q.get('skin') || get('skin') || 'clair';
+  if (!DEF[skin]) skin = 'clair';
+  var pref = q.get('theme') || get('theme.' + skin) || DEF[skin];
+  var dark = pref === 'dark' || (pref === 'auto' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  var d = document.documentElement;
+  d.setAttribute('data-skin', skin);
+  d.setAttribute('data-theme', dark ? 'dark' : 'light');
+  if (q.get('preview')) d.setAttribute('data-preview', '1');
+  var m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.setAttribute('content', PAPER[skin][dark ? 1 : 0]);
+})();
