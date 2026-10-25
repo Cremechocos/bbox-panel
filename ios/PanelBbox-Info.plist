@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Complété par les réglages INFOPLIST_KEY_* du projet (nom affiché, écran de lancement…). -->
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>L’app cherche le relais du panel et votre Bbox sur le réseau de la maison pour les afficher et les piloter.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>La caméra sert uniquement à lire le QR code de jumelage affiché par le panel web.</string>
+	<!-- Le relais du panel sur le réseau local répond en HTTP : on l'autorise sans ouvrir le reste d'Internet. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<!-- Lien de jumelage : bboxpanel://pair?url=<origine du relais> -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>fr.bboxpanel.app.pair</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>bboxpanel</string>
+			</array>
+		</dict>
+	</array>
+	<!-- HTTPS uniquement (chiffrement exempté) : évite la question d'export à chaque envoi sur l'App Store. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+</dict>
+</plist>
